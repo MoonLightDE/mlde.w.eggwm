@@ -326,32 +326,26 @@ unsigned int XWindow::getHeight() const {
 // **********                     PUBLIC SLOTS                     ********** //
 // ************************************************************************** //
 
-bool XWindow::resizedFrame(int width, int height) {
-    if(width != 0) {
+void XWindow::resizedFrame(int width, int height) {
+    if (width != 0) {
         int newWidth = this->frame->getWidth() + width;
         int minWidht = this->client->getMinWidth();
         int maxWidth = this->client->getMaxWidth();
 
         if(newWidth >= minWidht && newWidth <= maxWidth) {
-            this->setWidth(newWidth);
-            return true;
-        } else
-            return false;
+            this->setWidth(newWidth); return;
+        }
     }
 
-    if(height != 0) {
+    if (height != 0) {
         int newHeight = this->frame->getHeight() + height;
         int minHeight = this->client->getMinHeight();
         int maxHeight = this->client->getMaxHeight();
 
         if(newHeight >= minHeight && newHeight <= maxHeight) {
-            this->setHeight(newHeight);
-            return true;
-        } else
-            return false;
+            this->setHeight(newHeight); return;
+        }
     }
-
-    return false;
 }
 
 void XWindow::minimizedFrame() {

@@ -1,6 +1,6 @@
 TEMPLATE     = app
 TARGET       = eggwm
-QT          += core gui
+QT          += core gui widgets x11extras
 OBJECTS_DIR += build
 MOC_DIR     += build
 LIBS        += -lX11

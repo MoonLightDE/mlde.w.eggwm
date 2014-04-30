@@ -193,12 +193,21 @@ XID ICCCM::getWindowGroup() const {
 
 QPixmap ICCCM::getIconPixmap() const {
     XWMHints* wmHints = XGetWMHints(QX11Info::display(), this->clientID);
-    QPixmap icon = NULL;
+    QPixmap icon;
 
     if(wmHints && (wmHints->flags & IconPixmapHint)) {
+        // FIXME: there is no fromX11Pixmap for Qt5
+#if QT_VERSION >= 0x050000
+        icon = QPixmap();
+#else
         icon = QPixmap::fromX11Pixmap(wmHints->icon_pixmap);
+#endif
         if(wmHints->flags & IconMaskHint)
+#if QT_VERSION >= 0x050000
+            icon.setMask(QBitmap(QPixmap()));
+#else
             icon.setMask(QBitmap(QPixmap::fromX11Pixmap(wmHints->icon_mask)));
+#endif
     }
 
     XFree(wmHints);

@@ -384,7 +384,7 @@ class ClientFrame : public QWidget {
          * @~english
          * TO TRANSLATE
          */
-        bool resizedFrame(int width, int height);
+        void resizedFrame(int width, int height);
 
         /**
          * @~spanish

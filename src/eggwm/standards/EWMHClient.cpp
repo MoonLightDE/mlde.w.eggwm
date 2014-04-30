@@ -104,7 +104,7 @@ QPixmap EWMHClient::getIconPixmap() const {
     unsigned long numItems;
     int iconWidth;
     int iconHeight;
-    QPixmap icon = NULL;
+    QPixmap icon;
 
     // Ancho
     if(this->getProperty(al->getAtom("_NET_WM_ICON"), XA_CARDINAL, &propRet,
@@ -112,7 +112,7 @@ QPixmap EWMHClient::getIconPixmap() const {
         iconWidth = propRet[0];
         XFree(propRet);
     } else
-        return NULL;
+        return QPixmap();
 
     // Alto
     if(this->getProperty(al->getAtom("_NET_WM_ICON"), XA_CARDINAL, &propRet,
@@ -120,7 +120,7 @@ QPixmap EWMHClient::getIconPixmap() const {
         iconHeight = propRet[0];
         XFree(propRet);
     } else
-        return NULL;
+        return QPixmap();
 
     // Icono
     if(this->getProperty(al->getAtom("_NET_WM_ICON"), XA_CARDINAL, &propRet,
@@ -130,5 +130,5 @@ QPixmap EWMHClient::getIconPixmap() const {
         XFree(propRet);
         return icon;
     } else
-        return NULL;
+        return QPixmap();
 }

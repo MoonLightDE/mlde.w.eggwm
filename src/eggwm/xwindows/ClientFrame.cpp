@@ -461,8 +461,9 @@ void ClientFrame::mouseMoveEvent(QMouseEvent* event) {
     // Si se quiere estirar el borde superior
     if(this->mouseMask & TOP_BORDER) {
         int oldHeight = this->getHeight();
-        if(emit this->resizedFrame(0, this->y() - event->globalPos().y()))
-            this->move(this->x(), this->y() - (this->getHeight() - oldHeight));
+        emit this->resizedFrame(0, this->y() - event->globalPos().y());
+        // FIXME: it needs resizedFrame return, it true then DO move STUFF
+        this->move(this->x(), this->y() - (this->getHeight() - oldHeight));
 
     // Si se quiere estirar el borde inferior
     } if(this->mouseMask & BOTTOM_BORDER)
@@ -472,8 +473,9 @@ void ClientFrame::mouseMoveEvent(QMouseEvent* event) {
     // Si se quiere estirar el borde izquierdo
     if(this->mouseMask & LEFT_BORDER) {
         int oldWidth = this->getWidth();
-        if(emit this->resizedFrame(this->x() - event->globalPos().x(), 0))
-            this->move(this->x() - (this->getWidth() - oldWidth), this->y());
+        emit this->resizedFrame(this->x() - event->globalPos().x(), 0);
+        // FIXME: it needs resizedFrame return, it true then DO move STUFF
+        this->move(this->x() - (this->getWidth() - oldWidth), this->y());
 
     // Si se quiere estirar el borde derecho
     } if(this->mouseMask & RIGHT_BORDER)
