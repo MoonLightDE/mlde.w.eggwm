@@ -17,10 +17,34 @@
 
 #include "src/eggwm/util/Include.h"
 #include "src/eggwm/standards/EWMHRoot.h"
-//#include "src/eggwm/xwindows/XWindowList.h"
 #include "src/eggwm/standards/WMCheckWindow.h"
 #include "src/eggwm/events/factory/EventFactory.h"
 
+#if QT_VERSION >= 0x050000                                                         
+class MyXcbEventFilter : public QAbstractNativeEventFilter                         
+{                                                                                  
+public:
+    MyXcbEventFilter() :m_WindowList(NULL) {}
+
+    virtual bool nativeEventFilter(const QByteArray &eventType, void *message, long *) Q_DECL_OVERRIDE
+    {                                                                              
+        xcb_generic_event_t* ev = static_cast<xcb_generic_event_t*>(message);
+        if (m_WindowList == NULL) return false;
+        EventFactory* eventFactory = EventFactory::getInstance();
+        eventFactory->initialize(m_WindowList);
+        EventHandler* handler = eventFactory->getEventHandler(ev->response_type);
+        qDebug() << "DEBUG: " << __PRETTY_FUNCTION__ << handler;
+        // TODO: it still need to write other EventHandler subclass :)
+        //if (handler) handler->processEvent(ev);
+        return false;                                                              
+    }
+
+    void setWindowList(XWindowList* windowList) { m_WindowList = windowList; }
+
+private:
+    XWindowList* m_WindowList;
+};                                                                                 
+#endif
 
 /**
  * @~spanish
@@ -132,6 +156,10 @@ class EggWM : public QApplication {
          * Destructor.
          */
         virtual ~EggWM();
+
+#if QT_VERSION >= 0x050000
+        MyXcbEventFilter myXEv;
+#endif
 };
 
 #endif // EGGWM_H

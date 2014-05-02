@@ -46,6 +46,11 @@ EggWM::EggWM(int argc, char** argv) : QApplication(argc, argv) {
                                           ConfigureNotify, CirculateNotify */
             | ButtonPressMask);        /* ButtonPress */
     XFlush(QX11Info::display());
+
+#if QT_VERSION >= 0x050000
+    myXEv.setWindowList(this->windowList);
+    installNativeEventFilter(&myXEv);
+#endif
 }
 
 EggWM::~EggWM() {

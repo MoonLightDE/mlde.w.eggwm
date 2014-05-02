@@ -30,6 +30,10 @@
     #include <QSettings>
     #include <QDir>
     #include <QFile>
+#if QT_VERSION >= 0x050000
+    #include <QAbstractNativeEventFilter>
+    #include <xcb/xcb.h>
+#endif
 
     // X11
     #include <X11/Xlib.h>
