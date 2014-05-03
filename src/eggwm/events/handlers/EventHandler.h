@@ -71,9 +71,9 @@ class EventHandler {
          *         when we treat ourselves, false for normal event dispatching.
          */
         virtual bool processEvent(XEvent* event) = 0;
+
 #if QT_VERSION >= 0x050000
-        // TODO: it needs to write code for other child subclass :)
-        //virtual bool processEvent(xcb_generic_event_t* event) = 0;
+        virtual bool processEvent(xcb_generic_event_t* event) = 0;
 #endif
 
 };

@@ -34,8 +34,7 @@ public:
         eventFactory->initialize(m_WindowList);
         EventHandler* handler = eventFactory->getEventHandler(ev->response_type);
         qDebug() << "DEBUG: " << __PRETTY_FUNCTION__ << handler;
-        // TODO: it still need to write other EventHandler subclass :)
-        //if (handler) handler->processEvent(ev);
+        if (handler) handler->processEvent(ev);
         return false;                                                              
     }
 

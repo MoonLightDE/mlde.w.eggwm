@@ -54,6 +54,10 @@ class ConfigureRequestHandler : public EventHandler {
          *         when we treat ourselves, false for normal event dispatching.
          */
         virtual bool processEvent(XEvent* event);
+
+#if QT_VERSION >= 0x050000
+        virtual bool processEvent(xcb_generic_event_t* event);
+#endif
 };
 
 #endif // CONFIGUREREQUESTHANDLER_H

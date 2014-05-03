@@ -25,3 +25,7 @@ qmake
 make
 sudo make install
 ```
+
+## TODO
+
+- [ ] processEvent(xcb_generic_event_t* event) for different XXXEventHandler

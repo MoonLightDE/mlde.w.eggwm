@@ -83,5 +83,11 @@ bool MapRequestHandler::processEvent(XEvent* event) {
         qDebug() << "\tLa ventana no es ni un cliente ni un marco";
         return false;
     }
-
 }
+
+#if QT_VERSION >= 0x050000
+bool MapRequestHandler::processEvent(xcb_generic_event_t* event) 
+{
+    return false;
+}
+#endif

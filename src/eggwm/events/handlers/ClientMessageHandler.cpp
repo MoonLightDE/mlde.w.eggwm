@@ -92,3 +92,10 @@ bool ClientMessageHandler::processEvent(XEvent* event) {
         return false;
     }
 }
+
+#if QT_VERSION >= 0x050000
+bool ClientMessageHandler::processEvent(xcb_generic_event_t* event) 
+{
+    return false;
+}
+#endif
