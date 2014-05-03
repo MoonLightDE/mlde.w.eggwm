@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/ClientMessageHandler.h
  *
  * @~spanish

@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/CreateNotifyHandler.cpp
  *
  * @~spanish
@@ -53,6 +55,12 @@ bool CreateNotifyHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool CreateNotifyHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_create_notify_event_t* create = reinterpret_cast<xcb_create_notify_event_t*>(event);
+    Window windowID = create->window;
+    if (!this->wl->existFrame(windowID)) {
+        XWindow* xwindow = new XWindow(windowID);
+        this->wl->addClient(windowID, xwindow);
+    }  
     return false;
 }
 #endif

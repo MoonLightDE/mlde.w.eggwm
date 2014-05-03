@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/UnmapNotifyHandler.cpp
  *
  * @~spanish
@@ -64,6 +66,16 @@ bool UnmapNotifyHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool UnmapNotifyHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_unmap_notify_event_t* unmap = reinterpret_cast<xcb_unmap_notify_event_t*>(event);
+    Window windowID = unmap->window;
+    if (this->wl->existClient(windowID)) {
+        XWindow* xwindow = wl->getXWindowByClientID(windowID);
+        if (xwindow->getState() != IconicState) {
+            xwindow->setState(WithdrawnState);
+            this->wl->removeFromManagedWindow(xwindow);
+        }
+        this->wl->setActiveWindow(this->wl->getTopWindow());
+    }
     return false;
 }
 #endif

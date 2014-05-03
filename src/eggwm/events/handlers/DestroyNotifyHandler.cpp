@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/DestroyNotifyHandler.cpp
  *
  * @~spanish
@@ -87,6 +89,22 @@ bool DestroyNotifyHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool DestroyNotifyHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_destroy_notify_event_t* destroy = reinterpret_cast<xcb_destroy_notify_event_t*>(event);
+    Window windowID = destroy->window;
+    if (this->wl->existClient(windowID)) {
+        XWindow* xwindow = this->wl->getXWindowByClientID(windowID);
+        wl->removeClient(xwindow->getClientID());
+        this->wl->removeFromManagedWindow(xwindow);
+        if (!xwindow->haveFrame()) delete xwindow;
+        else xwindow->removeFrame();
+        return true;
+    } else if(wl->existFrame(windowID)) {
+        XWindow* xwindow = this->wl->getXWindowByFrameID(windowID);
+        if (destroy->event == destroy->window) return true;
+        this->wl->removeFrame(xwindow->getFrameID());
+        delete xwindow;
+        return true;
+    }
     return false;
 }
 #endif

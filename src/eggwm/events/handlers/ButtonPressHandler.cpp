@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/ButtonPressHandler.cpp
  *
  * @~spanish
@@ -55,6 +57,11 @@ bool ButtonPressHandler::processEvent(xcb_generic_event_t* event)
 {
     xcb_button_press_event_t* button = reinterpret_cast<xcb_button_press_event_t*>(event);
     Window windowID = button->root;
+    if (this->wl->existFrame(windowID)) {
+        XWindow* xwindow = wl->getXWindowByFrameID(windowID);
+        this->wl->restackManagedWindow(xwindow);
+        this->wl->setActiveWindow(xwindow);
+    }
     return false;
 }
 #endif

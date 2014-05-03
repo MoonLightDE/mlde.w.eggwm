@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/ConfigureRequestHandler.cpp
  *
  * @~spanish
@@ -85,6 +87,31 @@ bool ConfigureRequestHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool ConfigureRequestHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_configure_request_event_t *configure = reinterpret_cast<xcb_configure_request_event_t *>(event);
+    Window windowID = configure->window;
+    if (this->wl->existClient(windowID)) {
+        XWindow* xwindow = this->wl->getXWindowByClientID(windowID);
+        if (!xwindow->bypassWM()) {
+            if (configure->value_mask & CWX) xwindow->setX(configure->x);
+            if (configure->value_mask & CWY) xwindow->setY(configure->y);
+            Config* cfg = Config::getInstance();
+            if (configure->value_mask & CWWidth) {
+                if (xwindow->haveFrame()) {
+                    xwindow->setWidth(
+                        configure->width + cfg->getLeftBorderWidth() + 
+                        cfg->getRightBorderWidth());
+                } else xwindow->setWidth(configure->width);
+            }
+            if (configure->value_mask & CWHeight) {
+                if(xwindow->haveFrame()) {
+                    xwindow->setHeight(
+                        configure->height + cfg->getTitlebarWidth() + 
+                        cfg->getTopBorderWidth() + cfg->getBottomBorderWidth());
+                } else xwindow->setHeight(configure->height);
+            }
+            return true;
+        }
+    }
     return false;
 }
 #endif

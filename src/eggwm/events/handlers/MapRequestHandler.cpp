@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Leslie Zhai <xiang.zhai@i-soft.com.cn>
+ *
  * @file /src/eggwm/events/handlers/MapRequestHandler.cpp
  *
  * @~spanish
@@ -88,6 +90,24 @@ bool MapRequestHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool MapRequestHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_map_request_event_t* map = reinterpret_cast<xcb_map_request_event_t*>(event);
+    Window windowID = map->window;
+    if (this->wl->existClient(windowID)) {
+        XWindow* xwindow = this->wl->getXWindowByClientID(windowID);
+        if(xwindow->bypassWM()) return false;
+        else {
+            if (xwindow->getState() == WithdrawnState) {
+                if (xwindow->needFrame()) {
+                    xwindow->addFrame();
+                    wl->addFrame(xwindow->getFrameID(), xwindow);
+                }
+                xwindow->setState(NormalState);
+                this->wl->addToManagedWindows(xwindow);
+                this->wl->setActiveWindow(this->wl->getTopWindow());
+            }
+            return true;
+        }
+    }
     return false;
 }
 #endif
