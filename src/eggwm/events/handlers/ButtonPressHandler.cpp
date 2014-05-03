@@ -53,6 +53,8 @@ bool ButtonPressHandler::processEvent(XEvent* event) {
 #if QT_VERSION >= 0x050000
 bool ButtonPressHandler::processEvent(xcb_generic_event_t* event) 
 {
+    xcb_button_press_event_t* button = reinterpret_cast<xcb_button_press_event_t*>(event);
+    Window windowID = button->root;
     return false;
 }
 #endif

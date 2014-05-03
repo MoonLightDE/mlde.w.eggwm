@@ -28,13 +28,12 @@ public:
 
     virtual bool nativeEventFilter(const QByteArray &eventType, void *message, long *) Q_DECL_OVERRIDE
     {                                                                              
-        xcb_generic_event_t* ev = static_cast<xcb_generic_event_t*>(message);
+        xcb_generic_event_t* event = static_cast<xcb_generic_event_t*>(message);
         if (m_WindowList == NULL) return false;
         EventFactory* eventFactory = EventFactory::getInstance();
         eventFactory->initialize(m_WindowList);
-        EventHandler* handler = eventFactory->getEventHandler(ev->response_type);
-        qDebug() << "DEBUG: " << __PRETTY_FUNCTION__ << handler;
-        if (handler) handler->processEvent(ev);
+        EventHandler* handler = eventFactory->getEventHandler(event->response_type & ~0x80);
+        if (handler) handler->processEvent(event);
         return false;                                                              
     }
 
