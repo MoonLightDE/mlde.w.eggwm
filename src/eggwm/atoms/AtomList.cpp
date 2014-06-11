@@ -125,8 +125,9 @@ AtomList::AtomList() {
         "_NET_WM_HANDLED_ICONS",
         "_NET_WM_USER_TIME",
         "_NET_WM_USER_TIME_WINDOW",
-        "_NET_FRAME_EXTENTS"
+        "_NET_FRAME_EXTENTS", 
 
+        "_MOTIF_WM_HINTS"
     };
     int numAtoms = sizeof(atomsNames)/sizeof(char*);
     Atom atomsReturn[numAtoms];

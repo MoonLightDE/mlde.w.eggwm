@@ -17,7 +17,16 @@ sudo make install
 ```
 
 
-### Qt5
+### Qt5 for AnthonOS
+
+```
+/usr/lib/qt5/bin/qmake
+make
+sudo make install
+```
+
+
+### Qt5 for ArchLinux
 
 ```
 export QT_SELECT=5
@@ -25,7 +34,3 @@ qmake
 make
 sudo make install
 ```
-
-## TODO
-
-- [ ] processEvent(xcb_generic_event_t* event) for different XXXEventHandler

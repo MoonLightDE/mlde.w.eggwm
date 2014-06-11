@@ -112,7 +112,8 @@ bool XWindow::needFrame() const {
     Atom clientType = this->client->getWindowType();
     return !(clientType == al->getAtom("_NET_WM_WINDOW_TYPE_DESKTOP")
           || clientType == al->getAtom("_NET_WM_WINDOW_TYPE_DOCK")
-          || clientType == al->getAtom("_NET_WM_WINDOW_TYPE_SPLASH"));
+          || clientType == al->getAtom("_NET_WM_WINDOW_TYPE_SPLASH")
+          || clientType == al->getAtom("_MOTIF_WM_HINTS"));
 }
 
 

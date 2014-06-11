@@ -121,9 +121,9 @@ void Config::loadConfig() {
     QSettings themeSettings(themeConfigPath, QSettings::NativeFormat);
 
     // Guardamos la información del tema
-    showIcon            = themeSettings.value(SHOW_ICON, false).toBool();
+    showIcon            = themeSettings.value(SHOW_ICON, true).toBool();
 
-    titlebarWidth       = themeSettings.value(TITLEBAR_WIDTH, 16).toInt();
+    titlebarWidth       = themeSettings.value(TITLEBAR_WIDTH, 36).toInt();
     topBorderWidth      = themeSettings.value(TOP_BORDER_WIDTH, 4).toInt();
     bottomBorderWidth   = themeSettings.value(BOTTOM_BORDER_WIDTH, 4).toInt();
     leftBorderWidth     = themeSettings.value(LEFT_BORDER_WIDTH, 16).toInt();
