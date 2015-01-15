@@ -6,7 +6,7 @@ QT_VER_MIN = $$member(QT_VERSION, 1)
 TEMPLATE     = app
 TARGET       = eggwm
 QT          += core gui widgets
-greaterThan(QT_MAJOR_VERSION, 5) { 
+greaterThan(QT_MAJOR_VERSION, 4) { 
 QT          += x11extras
 }
 OBJECTS_DIR += build
