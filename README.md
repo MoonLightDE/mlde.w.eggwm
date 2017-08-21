@@ -5,28 +5,20 @@ A minimalist QT window manager for QT framework technology
 
 This its a minimal implementation for a defult window manager into Moonlight Desktop.
 
+![docs/mlde-eggwm-qt5.png](docs/mlde-eggwm-qt5.png)
+
 ## Build && Install
 
 Requirements and QT5 framework installed with qmake and development headers, 
-for specific distribution see [docs/READMEinstall.md] file at [docs] directory.
-
-### Qt4 build
+for propert install please see [docs/READMEinstall.md](docs/READMEinstall.md) file at [docs] directory.
 
 ```
-export QT_SELECT=4
 qmake -makefile
 make
 make install
 ```
 
-### Qt5 build
-
-```
-export QT_SELECT=5
-qmake -makefile
-make
-make install
-```
+More info at the [docs] directory please for testing see [docs/READMEinstall.md] file.
 
 ## Status
 
