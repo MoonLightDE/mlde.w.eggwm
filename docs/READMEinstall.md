@@ -58,3 +58,14 @@ Now lauch applications that can be specified what display to use, as `Xterm`, an
 ```
 $ xterm -display :1
 ```
+
+## Status:
+
+Working but take in consideration its a basic window manager, rest of implementation must be over a taskbar/panel, 
+
+This its a staled project please see sites:
+
+EggWM QT5 and QT4: https://moonlightde.github.io/mlde.w.eggwm/
+Moonlight DE: https://moonlightde.github.io/mlde.d.moonlightde/
+
+Return to main: [README.md](README.md)
