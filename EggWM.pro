@@ -17,7 +17,7 @@ LIBS        += -lX11
 
 target.path  = /usr/bin
 config.path  = /usr/share/eggwm
-config.files = installation/*
+config.files = src/data/*
 INSTALLS += target config
 
 
